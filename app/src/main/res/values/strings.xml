@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="auth0_client_id">PzwLG899qFespCmk7RjoYR3pVeTpKkKD</string>
+    <string name="auth0_domain">oskar.eu.auth0.com</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="fet">FET</string>
+    <string name="com_auth0_lock_header_title">Todo app</string>
+    <string name="auth0_preferences">AUTH0_SHARED_PREFERENCES_KEY</string>
+    <string name="title_activity_todo">TodoActivity</string>
+</resources>
+
