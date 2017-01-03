@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        // start the loginactivity
         Intent lockIntent = new Intent(this, LoginActivity.class);
         startActivity(lockIntent);
         finish();

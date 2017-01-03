@@ -20,20 +20,30 @@ import DataHandeler.TodoHandeler;
 
 public class AddTodoListActivity extends AppCompatActivity {
 
+    // the todohandeler instance
     private TodoHandeler todo;
 
+    // the description field
     private EditText descriptionField;
+
+    // the calendar view
     private CalendarView dateField;
+
+    // the add todo btn
     private Button addTodoBtn;
 
+    // the selected date string
     private String selectedDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_todo_list);
+
+        // get the todo instancce
         todo = TodoHandeler.getInstance();
 
+        // setup the ui
         descriptionField = (EditText) findViewById(R.id.desc);
         dateField = (CalendarView) findViewById(R.id.date);
         addTodoBtn = (Button) findViewById(R.id.addTodoListBtn);
@@ -43,6 +53,7 @@ public class AddTodoListActivity extends AppCompatActivity {
         Date date = new Date();
         selectedDate = dateFormat.format(date);
 
+        // set change date listener
         dateField.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -62,6 +73,7 @@ public class AddTodoListActivity extends AppCompatActivity {
             }
         });
 
+        // set button click listener
         addTodoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,12 +83,14 @@ public class AddTodoListActivity extends AppCompatActivity {
             }
         });
 
+        // request focus to the description field and open the keyboard
         descriptionField.requestFocus();
         InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 
     }
 
+    // add a new todolist
     private void addTodoList() {
         String desc = descriptionField.getText().toString();
         desc.trim();
@@ -85,11 +99,11 @@ public class AddTodoListActivity extends AppCompatActivity {
     }
 
 
+    // the callback function when a todo is added
     public void todoListIsAdded(){
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
         finish();
 
     }
-
 }

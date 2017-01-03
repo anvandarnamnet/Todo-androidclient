@@ -23,6 +23,7 @@
             android:layout_height="wrap_content" >
         </ProgressBar>
     </LinearLayout>
+
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
@@ -31,7 +32,6 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorAccent"
-
         />
 
     <com.baoyz.swipemenulistview.SwipeMenuListView

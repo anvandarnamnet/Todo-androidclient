@@ -30,13 +30,22 @@ import DataHandeler.TodoHandeler;
 
 public class TodoActivity extends AppCompatActivity {
 
+    // the todohandeler
     private TodoHandeler todo;
+
+    // our list adapter
     private ListAdapter adapter;
-    //private ListView list;
+
+    //add new item btn
     private Button addNewItem;
+
+    // the linear layout to present the loading view
     private LinearLayout linlaHeaderProgress;
 
+    // our listview
     private SwipeMenuListView listView;
+
+    // the todos and the ids
     private ArrayList<String> todos = new ArrayList<>();
     private ArrayList<String> todoId = new ArrayList<>();
 
@@ -47,14 +56,20 @@ public class TodoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // to present the loading view
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setProgressBarIndeterminateVisibility(true);
         setContentView(R.layout.activity_todo);
+
+        // get the todohandeler instance
         todo = TodoHandeler.getInstance();
-      //  list = (ListView) findViewById(R.id.list);
+
+        // setup some ui
         listView = (SwipeMenuListView) findViewById(R.id.listView);
         addNewItem = (Button) findViewById(R.id.btnAdd);
+        linlaHeaderProgress = (LinearLayout) findViewById(R.id.lin);
 
+        // set click listener for our add new item button
         addNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,11 +77,10 @@ public class TodoActivity extends AppCompatActivity {
             }
         });
 
+        // get the todo list title
         String tit = getIntent().getExtras().getString("title");
         setTitle(tit);
         activity = this;
-
-        linlaHeaderProgress = (LinearLayout) findViewById(R.id.lin);
 
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -76,25 +90,25 @@ public class TodoActivity extends AppCompatActivity {
                 // create "open" item
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getApplicationContext());
-                // set item background
-                //openItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                  //      0x3F, 0x25)));
+
                 // set item width
                 openItem.setWidth(400);
+
                 // set item title
                 openItem.setTitle("Delete");
+
                 // set item title fontsize
                 openItem.setTitleSize(18);
-                //openItem.setIcon(R.drawable.user);
 
                 // set item title font color
                 openItem.setTitleColor(Color.BLACK);
-                // add to menu'''
+
+                // add to menu
                 menu.addMenuItem(openItem);
             }
         };
 
-// set creator
+        // setup the swipe settings in the listview
         listView.setMenuCreator(creator);
 
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -112,6 +126,7 @@ public class TodoActivity extends AppCompatActivity {
         });
     }
 
+    // delete a list item
     private void deleteListItem(int position) {
         String id = todoId.get(position);
         todos.remove(position);
@@ -129,6 +144,7 @@ public class TodoActivity extends AppCompatActivity {
         setupListData();
     }
 
+    // show the add item page and send some data to it
     private void showAddItemPage() {
         Intent intent = new Intent(this, AddTodoItemActivity.class);
         intent.putExtra("id", listId);
@@ -136,13 +152,14 @@ public class TodoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // setup the list
     private void setupListData() {
         String id = getIntent().getExtras().getString("id");
         listId = id;
         todo.getInner(id, this);
     }
 
-
+    // Callback function from the todohandeler
     public void setList(JSONArray array){
         todos.clear();
         todoId.clear();
@@ -185,12 +202,14 @@ public class TodoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // callback function when the list is deleted
     public void isDeleted() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
         finish();
     }
 
+    // callbackfunction when a item is deleted
     public void itemIsDeleted() {
         setupListData();
     }

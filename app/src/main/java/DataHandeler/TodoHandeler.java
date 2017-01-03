@@ -94,7 +94,7 @@ public class TodoHandeler {
     }
 
 
-    // get the
+    // get the todo items
     public void getInner(String id, final TodoActivity todo) {
         RequestQueue queue = Volley.newRequestQueue(todo);
         String url = "https://fathomless-bayou-11388.herokuapp.com/api/gettodoitems";
@@ -126,13 +126,12 @@ public class TodoHandeler {
 
     }
 
-
+    // delete a todo list by it's id
     public void deleteTodoListByid(String id, final TodoActivity todo){
         RequestQueue queue = Volley.newRequestQueue(todo);
         String url = "https://fathomless-bayou-11388.herokuapp.com/api/deletetodolist";
 
         String tokenID = CredentialsManager.getCredentials(todo).getIdToken();
-
 
         JSONArray array = new JSONArray();
         array.put(id);
@@ -157,6 +156,7 @@ public class TodoHandeler {
         queue.add(authorizationRequest);
     }
 
+    // add a new todo list
     public void addTodoList(final String text, final String selectedDate, final AddTodoListActivity addTodoListActivity) {
 
         AuthenticationAPIClient client = new AuthenticationAPIClient(
@@ -205,6 +205,7 @@ public class TodoHandeler {
     }
 
 
+    // add a new todoitem.
     public void addTodoItem(final String desc, final String listId, final AddTodoItemActivity addTodoItemActivity){
         AuthenticationAPIClient client = new AuthenticationAPIClient(
                 new Auth0("PzwLG899qFespCmk7RjoYR3pVeTpKkKD", "oskar.eu.auth0.com"));
@@ -250,12 +251,13 @@ public class TodoHandeler {
                 });
     }
 
+
+    // delete a todo list item by it's id
     public void deleteListItemById(String id,final TodoActivity todo) {
         RequestQueue queue = Volley.newRequestQueue(todo);
         String url = "https://fathomless-bayou-11388.herokuapp.com/api/deletetodoitem";
 
         String tokenID = CredentialsManager.getCredentials(todo).getIdToken();
-
 
         JSONArray array = new JSONArray();
         array.put(id);

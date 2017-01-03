@@ -18,8 +18,11 @@ import java.util.ArrayList;
  */
 
 public class ListAdapter extends ArrayAdapter<String> {
+    // the current activity context
     private final Activity context;
+    // the items to present
     private final ArrayList<String> itemname;
+    // the dates to present
     private final ArrayList<String> dates;
 
     // Setup the list adapter.

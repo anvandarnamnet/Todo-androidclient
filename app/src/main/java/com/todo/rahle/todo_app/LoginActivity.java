@@ -26,17 +26,22 @@ import DataHandeler.CredentialsManager;
  */
 
 public class LoginActivity extends Activity {
+    // the lock
     private Lock mLock;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // setup the auth0 object
         Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
 
+        // setup the lock parameters
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("scope", "openid offline_access");
+
         mLock = Lock.newBuilder(auth0, mCallback)
                 //Add parameters to the builder
                 .build(this);
+
 
 
         if (CredentialsManager.getCredentials(this).getIdToken() == null) {
